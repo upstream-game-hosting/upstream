@@ -27,8 +27,9 @@ export default {
         function (user) {
             if (user) {
             const a = document.querySelector("a");
+            console.log(user.uid);
             a.innerText = `Play as ${user.displayName || user.email}`;
-            a.href = "/#/play";
+            a.href = "/#/landing";
             }
         },
         function (error) {

@@ -15,7 +15,7 @@ let ui;
 export default {
   mounted: () => {
     const uiConfig = {
-      signInSuccessUrl: "/#/play",
+      signInSuccessUrl: "/#/landing",
       signInOptions: [
         firebase.auth.EmailAuthProvider.PROVIDER_ID,
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
