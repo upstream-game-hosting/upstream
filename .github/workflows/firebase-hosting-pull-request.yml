@@ -1,0 +1,20 @@
+name: Deploy to Firebase Hosting
+on:  
+  push:
+    branches:
+      - master
+jobs:
+  build_and_preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: >-
+          npm install --global yarn && yarn install --frozen-lockfile && yarn
+          run build
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_SAMUELSTREAM_B7231 }}'
+          projectId: samuelstream-b7231
+        env:
+          FIREBASE_CLI_PREVIEWS: hostingchannels
