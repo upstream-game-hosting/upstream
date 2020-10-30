@@ -1,7 +1,7 @@
 <template>
   <div id="play">
     <div id="loader">
-        <button id="launch-button">Launch Game</button>
+      <button id="launch-button">Launch Game</button>
     </div>
     <iframe
       sandbox="allow-pointer-lock allow-orientation-lock allow-scripts allow-same-origin"
@@ -36,6 +36,9 @@ button {
 </style>
 
 <script>
+import * as firebase from "firebase/app";
+import "firebase/auth";
+
 export default {
   mounted: () => {
     const game = document.querySelector("#game");
@@ -58,6 +61,17 @@ export default {
         loader.style.display = "block";
       }
     });
+
+    firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          user.getIdToken().then((token) => {
+            console.log(token);
+          });
+        }
+      }, error => {
+        console.log(error);
+      }
+    );
   },
 };
 </script>

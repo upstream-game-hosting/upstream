@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <h1>UpStream</h1>
-    <router-link to="/login">Log In</router-link>
+    <a href="/#/login">Log In</a>
   </div>
 </template>
 
@@ -26,10 +26,10 @@ export default {
         firebase.auth().onAuthStateChanged(
         function (user) {
             if (user) {
-            const a = document.querySelector("a");
-            console.log(user.uid);
-            a.innerText = `Play as ${user.displayName || user.email}`;
-            a.href = "/#/landing";
+              const a = document.querySelector("a");
+              console.log(user.uid);
+              a.innerText = `Play as ${user.displayName || user.email}`;
+              a.href = "/#/landing";
             }
         },
         function (error) {
