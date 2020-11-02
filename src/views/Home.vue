@@ -32,7 +32,7 @@ export default {
           document.querySelector('#user').style.display = 'block';
           document.querySelector('#load').style.display = 'none';
         } else {
-          window.location.href = '/#/info';
+          window.location.href = '/info';
         }
       }, error => {
         console.log(error);

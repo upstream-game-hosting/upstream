@@ -1,6 +1,7 @@
 <template>
   <div class="home">
-    <h1>UpStream</h1>
+    <h1>UpStream Developers</h1>
+    <h2>Log in:</h2>
     <div id="firebaseui-auth-container"></div>
   </div>
 </template>
@@ -15,7 +16,7 @@ let ui;
 export default {
   mounted: () => {
     const uiConfig = {
-      signInSuccessUrl: "/landing",
+      signInSuccessUrl: "/dev/token",
       signInOptions: [
         firebase.auth.EmailAuthProvider.PROVIDER_ID,
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,

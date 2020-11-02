@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -10,6 +10,16 @@ const routes: Array<RouteRecordRaw> = [
     path: '/landing',
     name: 'Landing',
     component: () => import( '../views/Home.vue')
+  },
+  {
+    path: '/dev/token',
+    name: 'Developer Token',
+    component: () => import( '../views/DevToken.vue')
+  },
+  {
+    path: '/dev/login',
+    name: 'Developer Login',
+    component: () => import( '../views/DevLogin.vue')
   },
   {
     path: '/play/:user/:game',
@@ -29,7 +39,7 @@ const routes: Array<RouteRecordRaw> = [
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes
 });
 

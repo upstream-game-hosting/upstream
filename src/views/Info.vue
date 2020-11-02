@@ -23,16 +23,13 @@ import "firebase/auth";
 
 export default {
     mounted: () => {
-        firebase.auth().onAuthStateChanged(
-        function (user) {
+        firebase.auth().onAuthStateChanged( user => {
             if (user) {
               const a = document.querySelector("a");
-              console.log(user.uid);
               a.innerText = `Play as ${user.displayName || user.email}`;
-              a.href = "/#/landing";
+              a.href = "/landing";
             }
-        },
-        function (error) {
+        }, error => {
             console.log(error);
         }
         );

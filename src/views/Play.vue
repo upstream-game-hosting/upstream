@@ -1,10 +1,15 @@
 <template>
   <div id="play">
+    <div id="pre">
+      <h1>UpStream</h1>
+      <h2>Loading your game...</h2>
+      <pacman-loader :loading="true" color="#F9461C"></pacman-loader>
+    </div>
     <div id="loader">
       <button id="launch-button">Launch Game</button>
     </div>
     <iframe
-      sandbox="allow-pointer-lock allow-orientation-lock allow-scripts allow-same-origin"
+      sandbox="allow-pointer-lock allow-scripts"
       :src="`https://upstream-game-${$router.currentRoute._value.params.user}-${$router.currentRoute._value.params.game}.vercel.app`"
       id="game"
       frameborder="0"
@@ -32,14 +37,19 @@ button {
   border-radius: 5px;
   text-decoration: none;
   padding: 4px;
+  display: none;
 }
 </style>
 
 <script>
 import * as firebase from "firebase/app";
+import PacmanLoader from 'vue-spinner/src/PacmanLoader.vue';
 import "firebase/auth";
 
 export default {
+  components: {
+    PacmanLoader
+  },
   mounted: () => {
     const game = document.querySelector("#game");
     const loader = document.querySelector("#loader");
@@ -50,11 +60,10 @@ export default {
       game.style.display = "block";
       loader.style.display = "none";
       game.requestFullscreen();
-      screen.orientation.lock("landscape");
       navigator.keyboard.lock();
     };
 
-    document.addEventListener("fullscreenchange", (event) => {
+    document.addEventListener("fullscreenchange", () => {
       if (!document.fullscreenElement) {
         navigator.keyboard.unlock();
         game.style.display = "none";
@@ -67,6 +76,8 @@ export default {
           user.getIdToken().then((token) => {
             console.log(token);
           });
+        } else {
+          window.location.href = '/';
         }
       }, error => {
         console.log(error);
