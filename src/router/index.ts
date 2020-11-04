@@ -2,29 +2,33 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/login',
-    name: 'Login',
-    component: () => import( '../views/Login.vue')
-  },
-  {
     path: '/home',
-    name: 'Landing',
+    name: 'Home',
     component: () => import( '../views/Home.vue')
   },
   {
     path: '/dev/token',
     name: 'Developer Token',
-    component: () => import( '../views/DevToken.vue')
+    component: () => import( '../views/DevToken.vue'),
+    meta: {
+      title: 'Developer'
+    }
   },
   {
     path: '/dev/login',
     name: 'Developer Login',
-    component: () => import( '../views/DevLogin.vue')
+    component: () => import( '../views/DevLogin.vue'),
+    meta: {
+      title: 'Developer'
+    }
   },
   {
     path: '/play/:user/:game',
     name: 'Home',
-    component: () => import( '../views/Play.vue')
+    component: () => import( '../views/Play.vue'),
+    meta: {
+      title: 'Play'
+    }
   },
   {
     path: '/',
@@ -34,7 +38,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/:pathMatch(.*)*',
     name: '404',
-    component: () => import( '../views/404.vue')
+    component: () => import( '../views/404.vue'),
+    meta: {
+      title: '404 Page Not Found'
+    }
   }
 ];
 

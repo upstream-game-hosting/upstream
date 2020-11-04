@@ -3,42 +3,49 @@
 </template>
 
 <style>
-  body {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #f9461c;
-    background-color: black;
-  }
+body {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #f9461c;
+  background-color: black;
+}
 
-  * {
-    font-family: "Ubuntu", sans-serif;
-  }
+* {
+  font-family: "Ubuntu", sans-serif;
+}
 
-  h1 {
-    font-size: 70px;
-  }
+h1 {
+  font-size: 70px;
+}
 
-  button {
-    font-size: 30px;
-    background-color: #f9461c;
-    color: whitesmoke;
-    border: none;
-    border-radius: 5px;
-    text-decoration: none;
-    padding: 4px;
-  }
+button {
+  font-size: 30px;
+  background-color: #f9461c;
+  color: whitesmoke;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  padding: 4px;
+}
 
-  button:hover {
-    cursor: pointer;
-  }
+button:hover {
+  cursor: pointer;
+}
 </style>
 
 <script>
 import * as firebase from "firebase/app";
 
 export default {
+  watch: {
+    $route(to) {
+      if (to.meta.title) {
+        document.title = `${to.meta.title} | UpStream`;
+      }
+    },
+  },
   mounted: () => {
     const firebaseConfig = {
       apiKey: "AIzaSyC4dWobb4sNH47U62fVQ6eExlHAO-MiauA",
