@@ -5,12 +5,12 @@
       <h2>Loading your game...</h2>
       <pacman-loader :loading="true" color="#F9461C"></pacman-loader>
     </div>
-    <div id="loader">
+    <div id="loader" style="display:none;">
       <button id="launch-button">Launch Game</button>
     </div>
     <iframe
-      sandbox="allow-pointer-lock allow-scripts"
-      :src="`https://upstream-game-${$router.currentRoute._value.params.user}-${$router.currentRoute._value.params.game}.vercel.app`"
+      sandbox="allow-pointer-lock allow-scripts allow-same-origin"
+      :src="`https://upstream-game-${$router.currentRoute._value.params.user}-${$router.currentRoute._value.params.game}.vercel.app/#/?token=${$data.usertoken}`"
       id="game"
       frameborder="0"
     ></iframe>
@@ -37,7 +37,6 @@ button {
   border-radius: 5px;
   text-decoration: none;
   padding: 4px;
-  display: none;
 }
 </style>
 
@@ -50,10 +49,16 @@ export default {
   components: {
     PacmanLoader
   },
-  mounted: () => {
+  data: () => {
+    return {
+      usertoken: ''
+    }
+  },
+  mounted: function () {
     const game = document.querySelector("#game");
     const loader = document.querySelector("#loader");
     const loaderbtn = document.querySelector("#launch-button");
+    const pre = document.querySelector("#pre");
 
     loaderbtn.onclick = () => {
       game.contentWindow.focus();
@@ -74,7 +79,10 @@ export default {
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
           user.getIdToken().then((token) => {
-            console.log(token);
+            this.usertoken = token;
+            console.log(this.usertoken);
+            pre.style.display = "none";
+            loader.style.display = "block";
           });
         } else {
           window.location.href = '/';

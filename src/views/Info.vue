@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <h1>UpStream</h1>
-    <a href="/#/login">Log In</a>
+    <a href="/login">Log In</a>
   </div>
 </template>
 
