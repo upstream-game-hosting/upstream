@@ -1,38 +1,45 @@
 <template>
   <div class="home">
     <h1>UpStream</h1>
-    <a href="/login">Log In</a>
+    <div id="load">
+      <pacman-loader :loading="true" color="#F9461C"></pacman-loader>
+    </div>
+    <div id="home" style="display:none">
+      <button>Log In</button>
+    </div>
   </div>
 </template>
 
-<style scoped>
-a {
-  font-size: 30px;
-  background-color: #f9461c;
-  color: whitesmoke;
-  border: none;
-  border-radius: 5px;
-  text-decoration: none;
-  padding: 4px;
-}
-</style>
-
 <script>
 import * as firebase from "firebase/app";
+import PacmanLoader from "vue-spinner/src/PacmanLoader.vue";
 import "firebase/auth";
 
 export default {
-    mounted: () => {
-        firebase.auth().onAuthStateChanged( user => {
-            if (user) {
-              const a = document.querySelector("a");
-              a.innerText = `Play as ${user.displayName || user.email}`;
-              a.href = "/landing";
-            }
-        }, error => {
-            console.log(error);
+  components: {
+    PacmanLoader,
+  },
+  mounted: function () {
+    firebase.auth().onAuthStateChanged(
+      (user) => {
+        const btn = document.querySelector('button');
+        document.querySelector('#load').style.display = 'none';
+        document.querySelector('#home').style.display = 'block';
+        if (user) {
+          btn.innerText = `Play as ${user.displayName}`;
+          btn.onclick = () => {
+            this.$router.push('/home');
+          }
+        } else {
+          btn.onclick = () => {
+            this.$router.push('/login');
+          }
         }
-        );
-    },
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  },
 };
 </script>

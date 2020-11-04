@@ -2,15 +2,17 @@
   <div id="play">
     <div id="pre">
       <h1>UpStream</h1>
-      <h2>Loading your game...</h2>
       <pacman-loader :loading="true" color="#F9461C"></pacman-loader>
     </div>
-    <div id="loader" style="display:none;">
+    <div id="loader" style="display: none">
+      <h1>{{ $data.projectName }}</h1>
+      <h2>{{ $data.author }}</h2>
+      <p>{{ $data.description }}</p>
       <button id="launch-button">Launch Game</button>
     </div>
     <iframe
       sandbox="allow-pointer-lock allow-scripts allow-same-origin"
-      :src="`https://upstream-game-${$router.currentRoute._value.params.user}-${$router.currentRoute._value.params.game}.vercel.app/#/?token=${$data.usertoken}`"
+      :src="`https://upstream-game-${$route.params.user}-${$route.params.game}.vercel.app/#/?token=${$data.usertoken}`"
       id="game"
       frameborder="0"
     ></iframe>
@@ -29,6 +31,7 @@
   background-color: #f9461c;
   display: none;
 }
+
 button {
   font-size: 30px;
   background-color: #f9461c;
@@ -42,17 +45,20 @@ button {
 
 <script>
 import * as firebase from "firebase/app";
-import PacmanLoader from 'vue-spinner/src/PacmanLoader.vue';
+import PacmanLoader from "vue-spinner/src/PacmanLoader.vue";
 import "firebase/auth";
 
 export default {
   components: {
-    PacmanLoader
+    PacmanLoader,
   },
   data: () => {
     return {
-      usertoken: ''
-    }
+      usertoken: "",
+      projectName: "",
+      author: "",
+      description: ""
+    };
   },
   mounted: function () {
     const game = document.querySelector("#game");
@@ -76,19 +82,29 @@ export default {
       }
     });
 
-    firebase.auth().onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged(
+      (user) => {
         if (user) {
           user.getIdToken().then((token) => {
-            this.usertoken = token;
-            console.log(this.usertoken);
-            pre.style.display = "none";
-            loader.style.display = "block";
+            fetch(
+              `https://upstream-game-${this.$route.params.user}-${this.$route.params.game}.vercel.app/upstream-manifest.json`
+            )
+              .then((resp) => resp.json())
+              .then((manifest) => {
+                this.projectName = manifest.projectName;
+                this.author = manifest.author;
+                this.description = manifest.description;
+                this.usertoken = token;
+                pre.style.display = "none";
+                loader.style.display = "block";
+              });
           });
         } else {
-          window.location.href = '/';
+          window.location.href = "/";
         }
-      }, error => {
-        console.log(error);
+      },
+      (error) => {
+        console.error(error);
       }
     );
   },

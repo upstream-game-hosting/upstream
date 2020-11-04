@@ -10,12 +10,6 @@
   </div>
 </template>
 
-<style scoped>
-  #load {
-    text-align: center;
-  }
-</style>
-
 <script>
 import * as firebase from "firebase/app";
 import PacmanLoader from 'vue-spinner/src/PacmanLoader.vue';
@@ -25,14 +19,14 @@ export default {
   components: {
     PacmanLoader
   },
-  mounted() {
+  mounted: function () {
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
           document.querySelector('#name').innerText = `Welcome, ${user.displayName || user.email}`;
           document.querySelector('#user').style.display = 'block';
           document.querySelector('#load').style.display = 'none';
         } else {
-          window.location.href = '/info';
+          this.$router.push('/');
         }
       }, error => {
         console.log(error);

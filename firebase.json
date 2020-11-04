@@ -8,7 +8,19 @@
     ],
     "rewrites": [
       {
-        "source": "**",
+        "source": "/go/**",
+        "dynamicLinks": true
+      },
+      {
+        "source": "/game/**",
+        "dynamicLinks": true
+      },
+      {
+        "source": "!/go/**",
+        "destination": "/index.html"
+      },
+      {
+        "source": "!/game/**",
         "destination": "/index.html"
       }
     ]
