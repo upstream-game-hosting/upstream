@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <small style="color:#c60c30"></small><br /><br />
     <img src="/img/favicon.svg" style="height: 100px" />
     <h1>UpStream</h1>
     <h2>The best place to play and make games.</h2>
@@ -52,8 +53,11 @@ export default {
           };
         } else {
           try {
+            if (this.$route.query.returnToGame) {
+              document.querySelector('small').innerText = 'Please login to play this game.'
+            }
             const uiConfig = {
-              signInSuccessUrl: "/home",
+              signInSuccessUrl: this.$route.query.returnToGameUser ? `/play/${this.$route.query.returnToGameUser}/${this.$route.query.returnToGame}`: '/home',
               signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
             };
             ui = new firebaseui.auth.AuthUI(firebase.auth());

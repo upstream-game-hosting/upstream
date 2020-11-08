@@ -100,7 +100,7 @@ export default {
               });
           });
         } else {
-          window.location.href = "/";
+          window.location.href = `/?returnToGameUser=${this.$route.params.user}&returnToGame=${this.$route.params.game}`;
         }
       },
       (error) => {

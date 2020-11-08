@@ -24,7 +24,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/play/:user/:game',
-    name: 'Home',
+    name: 'Play',
     component: () => import( '../views/Play.vue'),
     meta: {
       title: 'Play'
