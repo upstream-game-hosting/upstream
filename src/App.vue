@@ -37,6 +37,7 @@ button:hover {
 
 <script>
 import * as firebase from "firebase/app";
+import "firebase/analytics";
 
 export default {
   watch: {
@@ -58,6 +59,7 @@ export default {
       measurementId: "G-0W72KNQYJQ",
     };
     firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
   },
 };
 </script>
